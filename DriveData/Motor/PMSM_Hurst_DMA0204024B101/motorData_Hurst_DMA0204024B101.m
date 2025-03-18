@@ -30,7 +30,7 @@ mot.maps.fluxVec_Q      = mot.maps.currVec_Q * mot.param.indApp_Q;
 [mot.maps.currMap_D,...
     mot.maps.currMap_Q] = meshgrid(mot.maps.currVec_D,mot.maps.currVec_Q);
 
-%return
+return
 %% Useful stuff
 % maps plot 
 surf(mot.maps.fluxVec_D,mot.maps.fluxVec_Q,mot.maps.currMap_D);
