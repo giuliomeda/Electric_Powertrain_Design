@@ -1,13 +1,22 @@
+proj = currentProject();
+projectRoot = proj.RootFolder;
+femPath = fullfile(projectRoot,'FEMM');
+
+
 %% General data 
-MD.ModelName = 'IPM_TeslaModel3'; % .fem model name 
-MD.ScaleFactor = 1;              % dipende da unità di misura all'interno del file FEMM
+MD.ModelName = 'TeslaModel3_ElectricMotor_complete_1_test'; % .fem model name (deve essere uguale al nome del file femm) 
+MD.ScaleFactor = 1;                                         % dipende da unità di misura all'interno del file FEMM
 MD.StackLength = 134*MD.ScaleFactor; 
 MD.PackFactor = 0.96; 
 MD.PolePairs = 3; 
-MD.Airgap = 0.7; 
-MD.SimPoles = 3; 
+MD.Airgap = 0.7 * MD.ScaleFactor; 
+MD.SimPoles = 6;
+
+MD.ModelUnit = 'millimiters';
+MD.AirgapMeshSize = 1;
 
 %% Stator general data 
+Stator.Type = 'External';
 Stator.Group = 1000; 
 Stator.PolePairs = MD.PolePairs; 
 % Stator.Geometry.FirstSlotAngle = 0;
@@ -37,6 +46,7 @@ Stator.Winding.SlotMatrix = load('SlotMatrixTM3.txt');
 % Stator.Winding.CircName = 'Islot';
 
 %% Rotor general data 
+Rotor.Type = 'Internal';
 Rotor.Group = 10; 
 Rotor.IronGroup = 11;
 Rotor.MagnetGroups = 12; % (for fft losses) 
@@ -45,7 +55,7 @@ Rotor.PolePairs = MD.PolePairs;
 Rotor.Geometry.Airgap = MD.Airgap; 
 Rotor.Geometry.StackLength = MD.StackLength; 
 Rotor.Geometry.OuterDiameter = Stator.Geometry.InnerDiameter - 2*Stator.Geometry.Airgap; 
-% Rotor.Geometry.InnerDiameter = 40*MD.ScaleFactor; 
+Rotor.Geometry.InnerDiameter = 2*34.75*MD.ScaleFactor; 
 %% Rotor magnet dimensions 
 % Rotor.Magnet.Geometry.Thickness = 2*MD.ScaleFactor; 
 % Rotor.Magnet.Geometry.Width = 5*MD.ScaleFactor; 

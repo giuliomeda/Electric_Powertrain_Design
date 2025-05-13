@@ -48,7 +48,7 @@ if strcmp(MD.Stator.Type, 'External')
   StatorNoGapDiameter = s.geo.OuterDiameter;  
   RotorGapDiameter = r.geo.OuterDiameter;
   RotorNoGapDiameter = r.geo.InnerDiameter;
-elseif
+else
   GapPropNum = 11;
   ParSign = -1;
   StatorGapDiameter = s.geo.OuterDiameter;
@@ -121,7 +121,10 @@ if SD.NewFemmInstance == 1
 end
 
 %% Add sliding bands to model
-opendocument([SD.ModelPath, '/', SD.ModelName,'.fem']); % open the model
+filePath = fullfile(SD.ModelPath,strcat(SD.ModelName,'.fem'));
+filePath = quote(filePath);
+filePath = strrep(filePath,'""','"');
+callfemm([ 'open(' , filePath , ')' ]);
 % Set the sliding band propnum (see manual)
 draw_gap_lines(MD, MD.AirgapMeshSize); % add the air-gap bands
 mi_saveas([SD.TempFolder, '/', SD.ModelName, '_SB.fem']); % save the modified model
