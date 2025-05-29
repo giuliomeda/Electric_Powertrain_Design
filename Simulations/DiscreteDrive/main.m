@@ -2,8 +2,8 @@ clear all
 close all
 clc 
 %% Motor model definition
-motorData_Hurst_DMA0204024B101
-
+%motorData_Hurst_DMA0204024B101
+motorDataTeslaM3
 %% Inverter model definition 
 inverter_MCLV2
 %% Current regulators
@@ -45,3 +45,10 @@ contr_Speed.param.outMax = mot.rated.torq;
 contr_Speed.param.outMin = -mot.rated.torq;
 %% Measurement
 meas_MCLV2;
+%% Speed reference
+data = readmatrix('ciclo_WLTC_3b.xlsx');
+% Assign columns to vectors
+wltc_3b.time = data(:,1); % first column as time 
+wltc_3b.speed_kmh = data(:,2); % second column as speed
+
+wltc_3b.time_simulation = wltc_3b.time;
