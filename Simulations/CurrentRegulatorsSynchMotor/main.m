@@ -3,7 +3,7 @@ close all
 clc 
 %% Motor model definition
 motorData_Hurst_DMA0204024B101
-
+%mot.param.inertiaM = 10e6;
 %% Inverter model definition 
 inverter_MCLV2
 %% Current regulators
